@@ -10,16 +10,16 @@ class WebMonitorController extends Controller {
 
     public function addUser() {
         $condition['usermail'] = I('post.usermail');
-        $User = M("tieba"); 
+        $User = M("webmonitor"); 
         $check = $User->where($condition)->find();
 
-        $tbcookie = str_replace('&quot;', '', I('post.tbcookie'));
-
         if ( $check ) {
-            $data['tbcookie'] = $tbcookie;
+            $data['userurl'] = I('post.userurl');
+            $data['userpattern'] = I('post.userpattern');
             $result = $User->where($condition)->save($data);
         } else {
-            $data['tbcookie'] = $tbcookie;
+            $data['userurl'] = I('post.userurl');
+            $data['userpattern'] = I('post.userpattern');
             $data['usermail'] = $condition['usermail'];
             $User->create($data, Model::MODEL_INSERT);
             $result = $User->add();
@@ -28,7 +28,7 @@ class WebMonitorController extends Controller {
         if (!$result) {
             $this->error($result);
         } else {
-            sendMail($condition['usermail'],'贴吧签到激活链接',$this->getEncryptUrl($condition['usermail']));
+            sendMail($condition['usermail'],'网页检测激活链接',$this->getEncryptUrl($condition['usermail']));
             $this->success('信息已添加，请检查邮箱并激活',U('/'));
         }
     }
@@ -39,7 +39,7 @@ class WebMonitorController extends Controller {
         if (time() > $end) {
             $this->error('链接已失效',U('/'));
         } else {
-            $User = M("tieba");
+            $User = M("webmonitor");
             $condition['usermail'] = $usermail;
             $result = $User->where($condition)->setField('activate',1);
             if ($result) {
@@ -52,7 +52,7 @@ class WebMonitorController extends Controller {
     private function getEncryptUrl($t) {
         $basecodeUrl = base64_encode($t);
         $end = time()+43200;
-        $url = 'http://tjgou.do/tieba/activate?info='.$basecodeUrl.'&end='.$end;
+        $url = 'http://tjgou.do/webMonitor/activate?info='.$basecodeUrl.'&end='.$end;
         return $url;
     }
 
