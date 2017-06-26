@@ -10,14 +10,16 @@ class TiebaController extends Controller {
 
     public function addUser() {
         $condition['usermail'] = I('post.usermail');
-        $User = M("tieba"); // 实例化User对象
+        $User = M("tieba"); 
         $check = $User->where($condition)->find();
 
+        $tbcookie = str_replace('&quot;', '', I('post.tbcookie'));
+
         if ( $check ) {
-            $data['tbcookie'] = I('post.tbcookie');
+            $data['tbcookie'] = $tbcookie;
             $result = $User->where($condition)->save($data);
         } else {
-            $data['tbcookie'] = I('post.tbcookie');
+            $data['tbcookie'] = $tbcookie;
             $data['usermail'] = $condition['usermail'];
             $User->create($data, Model::MODEL_INSERT);
             $result = $User->add();
