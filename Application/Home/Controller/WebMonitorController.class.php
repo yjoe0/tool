@@ -2,23 +2,19 @@
 namespace Home\Controller;
 use Think\Controller;
 use Think\Model;
-class TiebaController extends Controller {
+class WebMonitorController extends Controller {
     public function index() {
+        // echo "string";
         $this->display();
     }
 
     public function addUser() {
         $condition['usermail'] = I('post.usermail');
-        if ($condition['usermail'] == "") {
-            $this->error('数据错误，请返回重新填写');
-        }
         $User = M("tieba"); 
         $check = $User->where($condition)->find();
 
         $tbcookie = str_replace('&quot;', '', I('post.tbcookie'));
-        if ($tbcookie == "") {
-            $this->error('数据错误，请返回重新填写');
-        }
+
         if ( $check ) {
             $data['tbcookie'] = $tbcookie;
             $result = $User->where($condition)->save($data);

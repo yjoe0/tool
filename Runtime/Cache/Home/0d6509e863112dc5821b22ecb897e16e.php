@@ -10,7 +10,6 @@
     <script type="text/javascript" src="/Public/bootstrap.min.js"></script>
 </head>
 <body>
-
 <style>
     body {font-family: "微软雅黑", Arial, Helvetica, sans-serif; font-size: 14px; color: #000; } .left-menu {background-color: #555; height: 100%; } .left-menu ul li a {color: #a0a0a0; padding-left: 15px; } .left-menu ul li a:hover {color: #fff; background-color: #a0a0a0; } .text-left h4 {color: #fff; } </style>
 
@@ -21,7 +20,7 @@
                 <span class="text-left"><h4>你好,欢迎光临!!!</h4></span>
                 <ul class="nav nav-pills nav-stacked">
                     <li><a href="<?php echo U('/tieba');?>">贴吧签到</a></li>
-                    <!-- <li><a href="<?php echo U('/webmonitor');?>">网页监控</a></li> -->
+                    <li><a href="<?php echo U('/WebMonitor');?>">网页监控</a></li>
                 </ul>
             </div>
         <!-- 左侧菜单结束 -->
@@ -39,6 +38,8 @@
           <input type="submit" class="btn btn-default" value="提交">
         </form>
     </div>
+    <!-- 右侧内容结束 -->
+    <!-- 最右侧说明 -->
     <div class="col-md-5">
         <h3>百度贴吧cookie获取:</h3>
         <span>
@@ -48,6 +49,7 @@
             4.提交。进入邮箱点击激活链接即可。<br>
         </span>
     </div>
+    <!-- 说明结束 -->
 </div>
 
 
