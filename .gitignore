@@ -1,2 +1,4 @@
 Runtime
 Common
+*.log
+config.php
