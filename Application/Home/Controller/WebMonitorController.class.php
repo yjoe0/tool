@@ -41,8 +41,9 @@ class WebMonitorController extends Controller {
         } else {
             $User = M("webmonitor");
             $condition['usermail'] = $usermail;
-            $result = $User->where($condition)->setField('activate',1);
-            if ($result) {
+            $User->where($condition)->setField('activate',1);
+            $result = $User->where($condition)->getField('activate');
+            if ($result == '1') {
                 $this->success('已激活');
             } else {
                  $this->error('链接已失效,请重新填写信息。',U('/'));
@@ -52,7 +53,7 @@ class WebMonitorController extends Controller {
     private function getEncryptUrl($t) {
         $basecodeUrl = base64_encode($t);
         $end = time()+43200;
-        $url = 'http://tjgou.do/webMonitor/activate?info='.$basecodeUrl.'&end='.$end;
+        $url = 'http://tool.xiaoshenghuo.win/webMonitor/activate?info='.$basecodeUrl.'&end='.$end;
         return $url;
     }
 

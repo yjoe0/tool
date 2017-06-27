@@ -1,7 +1,7 @@
 
 <!-- 右侧内容区域 -->
-    <div class="col-md-5" >
-        <h3>贴吧签到:</h3>
+    <div class="col-sm-5 col-md-5" >
+        <h3>贴吧无密签到:</h3>
         <form method="post" action="{:U('/tieba/addUser')}">
         <div class="form-group">
             <textarea class="form-control" name="tbcookie" rows="3" placeholder="输入贴吧cookie代码" maxlength="999" minlength="5" required></textarea>
@@ -14,13 +14,14 @@
     </div>
     <!-- 右侧内容结束 -->
     <!-- 最右侧说明 -->
-    <div class="col-md-5" style="height:100%;border-left: 1px solid #a0a0a0;">
+    <div class="col-sm-5 col-md-5" style="height:100%;border-left: 1px solid #a0a0a0;">
         <h3>百度贴吧cookie获取:</h3>
         <span>
             1.打开百度贴吧主页：<a href="https://tieba.baidu.com/index.html" target="_blank">百度贴吧</a><br>
             2.打开浏览器调试模式，按F12，选Console，在下方输入: <b> document.cookie</b><br>
             3.复制上面返回的cookie信息，填入正确的邮箱地址。<br>
             4.提交。进入邮箱点击激活链接即可。<br>
+            <b>>这样你提交的都是加密的数据，没有任何信息泄露<</b>
         </span>
     </div>
     <!-- 说明结束 -->

@@ -45,8 +45,9 @@ class TiebaController extends Controller {
         } else {
             $User = M("tieba");
             $condition['usermail'] = $usermail;
-            $result = $User->where($condition)->setField('activate',1);
-            if ($result) {
+            $User->where($condition)->setField('activate',1);
+            $result = $User->where($condition)->getField('activate');
+            if ($result == '1') {
                 $this->success('已激活');
             } else {
                  $this->error('链接已失效,请重新填写信息。',U('/'));
@@ -56,7 +57,7 @@ class TiebaController extends Controller {
     private function getEncryptUrl($t) {
         $basecodeUrl = base64_encode($t);
         $end = time()+43200;
-        $url = 'http://tjgou.do/tieba/activate?info='.$basecodeUrl.'&end='.$end;
+        $url = 'http://tool.xiaoshenghuo.win/tieba/activate?info='.$basecodeUrl.'&end='.$end;
         return $url;
     }
 
