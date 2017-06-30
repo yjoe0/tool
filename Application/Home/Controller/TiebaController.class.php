@@ -58,7 +58,8 @@ class TiebaController extends Controller {
         $basecodeUrl = base64_encode($t);
         $end = time()+43200;
         $url = 'http://tool.xiaoshenghuo.win/tieba/activate?info='.$basecodeUrl.'&end='.$end;
-        return $url;
+        $content = '<a href="'.$url.'">激活链接</a><br/>如果无法点击，请复制下面链接打开激活：<br/>'.$url;
+        return $content;
     }
 
 }
