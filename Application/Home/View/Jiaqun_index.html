@@ -113,7 +113,7 @@
 </body>
 <script>
     function pay(fee) {
-        var data = {return_url:window.location.href, body:'加群',attach:<?php echo $attach?>};
+        var data = {return_url:window.location.href, body:'加群',attach:<?php echo $attach?:'1';?>};
         data['money'] = fee;
         httpPost(data);
     }
