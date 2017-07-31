@@ -56,7 +56,7 @@ class JiaqunController extends Controller {
         $srv = new \TeegonService( C('TEE_API_URL') );
         $sign = $srv->sign($param);
         $param['sign'] = $sign;
-
+        $param['number_p']  = $number_p;
         $this->assign( $param );
         $this->display();
     }
