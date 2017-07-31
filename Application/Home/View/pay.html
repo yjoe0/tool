@@ -1,23 +1,9 @@
-<form action="<?php echo C('TEE_API_URL')?>charge/pay" method="post" style='display:none;'>
-    <input type="hidden" name="order_no" value="<?php echo $order_no; ?>">
+<form action="{:U('/pay/pay')}" method="post" style='display:none;'>
+    <input type="hidden" name="money" value="<?php echo $money; ?>">
     <br>
-    <input type="hidden" name="channel" value="<?php echo $channel; ?>">
+    <input type="hidden" name="body" value="<?php echo $body; ?>">
     <br>
-    <input type="hidden" name="amount" value="<?php echo $amount; ?>">
-    <br>
-    <input type="hidden" name="subject" value="<?php echo $subject; ?>">
-    <br>
-    <input type="hidden" name="metadata" value="<?php echo $metadata; ?>">
-    <br>
-    <input type="hidden" name="client_ip" value="<?php echo $client_ip; ?>">
-    <br>
-    <input type="hidden" name="return_url" value="<?php echo $return_url; ?>">
-    <br>
-    <input type="hidden" name="notify_url" value="<?php echo $notify_url; ?>">
-    <br>
-    <input type="hidden" name="sign" value="<?php echo $sign; ?>">
-    <br>
-    <input type="hidden" name="client_id" value="<?php echo $client_id; ?>">
+    <input type="hidden" name="attach" value="<?php echo $attach; ?>">
     <br>
     <input type="submit" value="立即支付" id="submit">
 </form>

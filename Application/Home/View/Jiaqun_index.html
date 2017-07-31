@@ -109,12 +109,12 @@
         <button id="ffxs" onclick="pay(59)">付费入群</button>
     </p>
 </div>
-<include file="./Application/Home/View/pay.html" />
+<!-- <include file="./Application/Home/View/pay.html" /> -->
 </body>
 <script>
     function pay(fee) {
-        var data = {return_url:window.location.href, subject:'加群'};
-        data['amount'] = fee;
+        var data = {return_url:window.location.href, body:'加群',attach:<?php echo $attach?>};
+        data['money'] = fee;
         httpPost(data);
     }
 
