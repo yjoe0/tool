@@ -36,8 +36,8 @@ class PayController extends Controller {
         $data['money'] = (intval( I('post.money', '1') )*100);
         $data['body'] = I('post.body', '车票');
         $data['nonceStr'] = date('ymdHi');
-        $data['notifyUrl'] = 'http://tool.xiaoshenghuo.win/payback.html';
-        $data['returnUrl'] = urlencode('http://tool.xiaoshenghuo.win');
+        $data['notifyUrl'] = 'http://mp.opihome.me/pay/payback.html';
+        $data['returnUrl'] = urlencode('http://nczdk.cn/jq.php');
         $data['attach'] = I('post.attach','');
         $data['payTime'] = date("Y-m-d H:m:s");
 
@@ -52,6 +52,52 @@ class PayController extends Controller {
         $Headers  =  curl_getinfo($curl);
         curl_close($curl);
         header('Location:'.$Headers["redirect_url"]);
+    }
+
+    public function payBack() {
+
+        $status     = I('post.status');
+        $outTradeNo = I('post.outTradeNo');
+        $tradeNo    = I('post.tradeNo');
+        $money      = I('post.money');
+        $nonceStr   = I('post.nonceStr');
+        $attach   = I('post.attach');
+        $message   = I('post.message');
+        $paytime   = I('post.payTime');
+
+        if ($status != 1) {
+            echo 'FAIL';
+            exit();
+        }
+
+        $singure =  md5( $status.$outTradeNo.$tradeNo.$money.$nonceStr.C('mchno_key') );
+        $log = '';
+        foreach($_POST as $key => $value) {
+            $log = $log.' , '.$key.'=>'.$value;
+        }
+        $log = $log.' , Mysign: =>'.$singure;
+        \Think\Log::record(date("[Y-m-d H:i:s]"). $log."\n");
+
+        if ($singure != strtolower(I('post.sign')) ) {
+            echo "FAIL";
+            exit();
+        }
+
+        $params = array(
+            "outTradeNo" => $outTradeNo,//商户订单号,必须唯一,格式必须是 appid_ 开头
+            "money" => $money,//价格
+            "paytime" => $paytime, //支付时间
+            "pid" => $attach,//pid
+            'tradeNo' => $tradeNo,
+            'message' => $message
+        );
+        $Pay = M('pay');
+        $Pay->create($params, Model::MODEL_INSERT);
+        $result = $Pay->add();
+        if (!$result) {
+            \Think\Log::record('PAY SQL:'.$result);
+        } 
+        echo 'SUCCESS';
     }
 
 }
