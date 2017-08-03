@@ -46,13 +46,13 @@
     .receive_box {
         display: inline-block;
         padding: 3px;
-        max-width: 600px;
+        max-width: 200px;
         word-wrap:break-word;
         background: #3385ff;
         border-radius: 4px;
     }
     .receive_box img {
-        width: 50%;
+        width: 99%;
         height: auto;;
     }
     .trangle-right{
@@ -90,7 +90,7 @@
 <script type="text/javascript" src="./Public/js/yunba-js-sdk.js"></script>
 <script type="text/javascript" src="./Public/js/event.js"></script>
 <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.5/webuploader.withoutimage.min.js"></script>
-<script type="text/javascript" src="./Public/js/upload.js"></script>
+<!-- <script type="text/javascript" src="./Public/js/upload.js"></script> -->
 
 <script>
     var yunba = new Yunba({server: 'sock.yunba.io', port: 3000, appkey: '589069a0c4d184904a84bcd9'});    
@@ -138,7 +138,7 @@
     // 发送消息
     function send(content) {
         if ( IsURL(content) ) {
-            var images = ["jpg","png","gif"];
+            var images = ["jpg","png","gif","jpeg"];
             var ext = content.substr(-3);
             if (images.indexOf(ext) > -1) {
                 content = '<img src='+content+'>';
