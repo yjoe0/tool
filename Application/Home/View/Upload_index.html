@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.0/webuploader.min.js"></script>
+</head>
+<body>
+
+<div id="uploader-demo">
+        <!--用来存放item-->
+        <div id="fileList" class="uploader-list"></div>
+        <div id="filePicker">选择图片</div>
+        <button id="ctlBtn" class="btn btn-default">开始上传</button>  
+
+</div>
+</body>
+
+<script type="text/javascript">
+    $("#ctlBtn").click(function(){
+        console.log('start');
+        uploader.upload();
+    });
+    var uploader = WebUploader.create({
+
+    // swf文件路径
+    swf:     'https://cdn.staticfile.org/webuploader/0.1.5/Uploader.swf',
+    server:  'http://tjgou.do/upload/upload',
+    pick:    '#filePicker',
+    chunked: true,
+    chunkSize: 2*1024*1024,
+    // formData: {guid:GUID},
+    threads: 1,
+    fileNumLimit: 3,
+    resize:  false,
+    disableGlobalDnd: true, 
+    accept:  {  
+                title: 'Images',  
+                extensions: 'gif,jpg,jpeg,bmp,png,mp4',  
+                mimeTypes: 'image/jpg,image/jpeg,image/png,video/mp4'
+            }
+});
+
+    uploader.on( 'uploadSuccess', function( file ) {
+        $( '#'+file.id ).find('p.state').text('已上传');
+    });
+
+    uploader.on( 'uploadError', function( file ) {
+        $( '#'+file.id ).find('p.state').text('上传出错');
+    });
+
+    uploader.on( 'uploadComplete', function( file ) {
+        $( '#'+file.id ).find('.progress').fadeOut();
+    });
+
+
+
+</script>
+</html>

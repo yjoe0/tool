@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>个人聊天</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" src="./Public/js/socket.io-1.3.5.min.js"></script>
+</head>
+<style type="text/css">
+    html,body{
+        height:100%;
+        margin: 2px;
+        background: #fbfbfb;
+    } 
+    #filePicker {
+        display: inline-block;
+    }
+    input {
+      min-height: 30px;
+      width: 75%;
+      font-weight: bold;
+    }
+    input[type=file] {
+        display: none;
+    }
+    .my_send {
+        float: right;
+        background: hsla(119, 69%, 51%, 0.64);
+        display: inline-block;
+        padding: 3px;
+        max-width: 87%;
+        border-radius: 4px;
+        word-wrap:break-word;
+        margin-top: 20px;
+    }
+    .my_send img {
+        float: right;
+        width: 300px;
+        height: auto;;
+    }
+    .receive {
+        display: inline-flex;
+    }
+    .receive_box {
+        display: inline-block;
+        padding: 3px;
+        max-width: 600px;
+        word-wrap:break-word;
+        background: #3385ff;
+        border-radius: 4px;
+    }
+    .receive_box img {
+        width: 50%;
+        height: auto;;
+    }
+    .trangle-right{
+        float: right;
+        margin:24px 6px 5px -3px;
+        width:0;
+        height:0;
+        border-top:8px solid transparent;
+        border-bottom:8px solid transparent;
+        border-left:8px solid hsla(119, 69%, 51%, 0.64);
+        }
+</style>
+<body>
+
+
+
+<div style="height: 90%">
+    <fieldset style="height: 95%;Overflow-y:scroll;" id='container'>
+      <legend>收到消息</legend>
+      <div id="msg_list">
+        <div id="msg_end" style="height:0px; overflow:hidden"></div>
+      </div>
+    </fieldset>
+</div>
+<div style="width: 100%; margin:2px;">
+    <span id="filePicker"> 图片 </span>
+    <input type="text" name="msg" id="send_text">
+    <button id="send">发送</button>
+</div>
+
+<input type="hidden" name="mySend" value="" id='mySend'>
+</body>
+<script type="text/javascript" src="./Public/js/finger.js"></script>
+<script type="text/javascript" src="./Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="./Public/js/yunba-js-sdk.js"></script>
+<script type="text/javascript" src="./Public/js/event.js"></script>
+<script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.5/webuploader.withoutimage.min.js"></script>
+<script type="text/javascript" src="./Public/js/upload.js"></script>
+ <script src="//api.html5media.info/1.1.8/html5media.min.js"></script> 
+
+
+<script>
+    var yunba = new Yunba({server: 'sock.yunba.io', port: 3000, appkey: '589069a0c4d184904a84bcd9'});    
+    var customid = new Fingerprint({screen_resolution: true}).get();
+    var topic = 'my_test_topic';
+    var mySend = $('#mySend');
+    var w = $(window).height();
+    var C = $('#container');
+    var M = $('#msg_list');
+// $('#msg_list').append($msg);
+    //  初始化
+    yunba.init(function (success) {
+        if (success) {
+            yunba.connect_by_customid(customid, function (success, msg, sessionid) {
+                if (success) {
+                    new Toast({context:$('body'),message:'已成功连接到服务器'}).show();
+                } else {
+                    $('#msg_list').append(msg);
+                }
+            });
+        }
+    });
+
+    // 订阅
+    function subscribe() {
+        yunba.subscribe({'topic': topic}, 
+            function (success, msg) {
+                if (success) {
+                    new Toast({context:$('body'),message:'你已进入频道：'+topic}).show();
+                } else {
+                    $('#msg_list').append(msg);
+                }
+            }
+            );
+
+            yunba.set_message_cb(function (data) {
+                if (data.msg != mySend.val() ) {
+                    $('#msg_list').append( data.msg );
+                    scrollIntoView();
+                }
+            
+        });
+    }
+
+    // 发送消息
+    function send(content) {
+        if ( IsURL(content) ) {
+            var images = ["jpg","png","gif"];
+            var ext = content.substr(-3);
+            if (images.indexOf(ext) > -1) {
+                content = '<img src='+content+'>';
+            } else if (ext == 'mp4') {
+                content = '<video src="'+content+'" controls preload>您的浏览器不支持 video 标签。</video>';
+            } else {
+                content = '<a target="_blank" href="'+content+'">'+content.substr(0,43)+'...</a>';
+            }
+        }
+        
+        var sendContent = '<p><div class="receive"><b>'+customid+'</b>：<span class="receive_box">'+content+"</span></div>";
+
+        mySend.val(sendContent);
+        yunba.publish({'topic': topic, 'msg': sendContent },
+            function (success, msg) {
+                if (success) {
+                    $('#msg_list').append('<p><span class="trangle-right"></span><div class="my_send">'+content+'</div><br/></p><br/>');
+                    scrollIntoView(); 
+                } else {
+                    $('#msg_list').append(msg);
+                }
+            }
+        );
+    }
+
+    function scrollIntoView() {
+        C.scrollTop( M.height() );
+
+    }
+
+function IsURL(url){
+    var urlRegExp=/^((https|http|ftp|rtsp|mms)?:\/\/)+[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
+    if(urlRegExp.test(url)){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+</script>
+</html>

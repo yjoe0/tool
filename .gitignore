@@ -3,3 +3,4 @@ Runtime/
 *.log
 config.php
 PubLic/media/
+Uploads/
