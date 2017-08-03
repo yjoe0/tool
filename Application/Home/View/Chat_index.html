@@ -3,9 +3,9 @@
 <head>
     <title>个人聊天</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
     <meta http-equiv="Cache-Control" content="no-transform " /> 
-    <script type="text/javascript" src="./Public/js/socket.io-1.3.5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.staticfile.org/socket.io/1.3.5/socket.io.min.js"></script>
 </head>
 <style type="text/css">
     html,body{
@@ -85,14 +85,12 @@
 
 <input type="hidden" name="mySend" value="" id='mySend'>
 </body>
-<script type="text/javascript" src="./Public/js/finger.js"></script>
-<script type="text/javascript" src="./Public/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.cdnjs.net/fingerprintjs/0.5.3/fingerprint.min.js"></script>
 <script type="text/javascript" src="./Public/js/yunba-js-sdk.js"></script>
 <script type="text/javascript" src="./Public/js/event.js"></script>
 <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.5/webuploader.withoutimage.min.js"></script>
 <script type="text/javascript" src="./Public/js/upload.js"></script>
- <script src="//api.html5media.info/1.1.8/html5media.min.js"></script> 
-
 
 <script>
     var yunba = new Yunba({server: 'sock.yunba.io', port: 3000, appkey: '589069a0c4d184904a84bcd9'});    

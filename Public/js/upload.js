@@ -2,7 +2,7 @@
 
         // swf文件路径
         swf:     'https://cdn.staticfile.org/webuploader/0.1.5/Uploader.swf',
-        server:  'http://tjgou.do/upload/upload',
+        server:  './upload/upload',
         pick:    '#filePicker',
         chunked: true,
         chunkSize: 2*1024*1024,
