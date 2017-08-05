@@ -70,10 +70,23 @@ $(document).ready(function(){
     function paySubmit() {
         var command = checkCommand();
         if ( command ) {
-            window.location.href = '/chat/pay/<?php echo $topicId?>/'+ccid+'/'+command <?php echo $pid ? '+/'.$pid :'' ;?>;
+            var payUrl = window.location.origin+'/chat/pay/<?php echo $topicId?>/'+ccid+'/'+command <?php echo $pid ? '+/'.$pid :'' ;?>;
+            if ( is_weixn() ) {
+                window.location.href = payUrl;
+            } else {
+                document.write('<a href="'+payUrl+'">你好，请长按复制本链接到微信中打开</a>');
+            }
         }
         
     }
+    function is_weixn(){  
+        var ua = navigator.userAgent.toLowerCase();  
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {  
+            return true;  
+        } else {  
+            return false;  
+        }  
+    } 
 /** 
  * 模仿android里面的Toast效果，主要是用于在不打断程序正常执行的情况下显示提示数据 
  * @param config 
