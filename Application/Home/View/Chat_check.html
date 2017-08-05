@@ -1,0 +1,116 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0"/>
+    <title>你不尝试做些能力之外的事情永远不知道自己...</title>
+    <style type="text/css">
+        html, body, div, p, span {margin: 0; padding: 0; font-family: Microsoft YaHei; box-sizing: border-box; background-color: #f7f7f7 } .cf:after {content: ""; display: table; clear: both; } .content {width: 100%; height: auto; position: relative; color: #989898; } .content p {width: 100%; text-align: center; } .content .qz {height: 60px; line-height: 60px; font-size: 16px; } .content .jg {color: #000; font-size: 50px; height: 80px; line-height: 50px; } .content .ts {height: 96px; line-height: 80px; border-top: 2px dashed #ccc; border-bottom: 2px dashed #ccc; } .content .ts img {width: 11.11%; vertical-align: middle; } .content .ts span {vertical-align: middle; font-size: 18px; } .content .zf {height: 120px; line-height: 120px; } .content .zf button {height: 60px; border: none; outline: none; border-radius: 5px; width: 70%; font-size: 20px; background: #01bf00; color: #fff; font-weight: 600; font-family: Microsoft YaHei; } .content .tk {font-size: 16px; height: 70px; line-height: 50px; background: #f7f7f7; } .content .yf {height: 50px; line-height: 50px; text-align: left; } .content .yf .yf_zi {vertical-align: middle; font-size: 12px; font-weight: 600; font-size: 16px; } .content .yf img {vertical-align: middle; width: 3.61%; margin-left: 2.78%; } .yf_s {color: #15b00e; } .content .qy {padding: 0 2.78% 0 2.78%; height: 238px; width: 100%; } .back {border: 1px solid #dedede; width: 100%; height: 100%; display: inline-block; border-radius: 10px; padding-top: 10px; font-size: 14px; text-align: center; } .back .back_img img {width: 100%; border-radius: 10px;        } .back_1 {display: inline-block; margin: 15px 5px 0 5px; } .back p {width: 100%; height: 45px; line-height: 50px; text-align: center; margin-top: 20px; background-color: #ebebeb; border-radius: 0 0 10px 10px; } .back p img {width: 20px; } 
+            #command {
+                border-radius:10px 10px 10px 10px;
+                height: 40px;
+                margin: 1px;
+                padding: 1px;
+                font-size: 20px;
+                border: 1px solid #c8cccf;
+                color: #6a6f77;
+                -web-kit-appearance: none;
+                -moz-appearance: none;
+                outline: 0;
+                padding: 2px;
+                text-decoration: none;
+                text-align: center;
+            }
+        </style> </head> <body>
+<div class="content">
+    <p class="qz">口令</p>
+    <p class="jg"><input type="text" name="command" id="command"></p>
+    <p class="ts">
+                <span><img src="http://mp.opihome.me/Public/img/6-1.jpg"></span><span>系统提示：请输入8位口令(密码)</span>
+    </p>
+    <p class="zf">
+        <button id="pay" onclick="checkSubmit();">立即进入</button>
+    </p>
+    <p class="zf">
+        <button id="pay" onclick="paySubmit();">支付注册口令</button>
+    </p>
+    <p class="tk">若入群后不满意，3分钟内退群自动退款。</p>
+
+    <p class="yf"><img src="http://mp.opihome.me/Public/img/yes.jpg"> <span class="yf_zi"><span class="yf_s">该频道已注册</span>的人员 (已收 <span
+                    class="yf_s"><?php echo $number_p;?></span>人)</span></p>
+</div>
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.cdnjs.net/fingerprintjs/0.5.3/fingerprint.min.js"></script>
+
+<script>
+var ccid
+$(document).ready(function(){
+    ccid = (new Fingerprint({screen_resolution: true}).get()).toString();
+});
+    function checkCommand() {
+        var command = $('#command').val();
+        if ( !command || !/^(\w{8})?$/.test( command ) ) {
+            new Toast({context:$('body'),message:"口令格式错误！(8为字母或数字组成 )"}).show();
+            return false;
+        } else {
+            return command;
+        }
+    }
+    function checkSubmit() {
+        var command = checkCommand();
+        if ( command ) {
+            window.location.href = '/chat/checkin/<?php echo $topicId?>/'+ccid+'/'+command <?php echo $pid ? '+/'.$pid :'' ;?>;
+        }
+    }
+    function paySubmit() {
+        var command = checkCommand();
+        if ( command ) {
+            window.location.href = '/chat/pay/<?php echo $topicId?>/'+ccid+'/'+command <?php echo $pid ? '+/'.$pid :'' ;?>;
+        }
+        
+    }
+/** 
+ * 模仿android里面的Toast效果，主要是用于在不打断程序正常执行的情况下显示提示数据 
+ * @param config 
+ * @return 
+ */  
+var Toast = function(config){  
+    this.context = config.context==null?$('body'):config.context;//上下文  
+    this.message = config.message;//显示内容  
+    this.time = config.time==null?3000:config.time;//持续时间  
+    this.left = config.left;//距容器左边的距离  
+    this.top = config.top;//距容器上方的距离  
+    this.init();  
+}  
+var msgEntity;  
+Toast.prototype = {  
+    //初始化显示的位置内容等  
+    init : function(){  
+        $("#toastMessage").remove();  
+        //设置消息体  
+        var msgDIV = new Array();  
+        msgDIV.push('<div id="toastMessage" style="border-radius:18px;-moz-opacity:0.6;opacity:0.6;">');  
+        msgDIV.push('<span style="background-color:black;">'+this.message+'</span>');  
+        msgDIV.push('</div>');  
+        msgEntity = $(msgDIV.join('')).appendTo(this.context);  
+        //设置消息样式  
+        var left = this.left == null ? this.context.width()/2-msgEntity.find('span').width()/2 : this.left;  
+        var top = this.top == null ? '100px' : this.top;  
+        msgEntity.css({position:'absolute',bottom:top,'z-index':'99',left:left,'background-color':'black',color:'white','font-size':'15px',padding:'10px',margin:'10px'});  
+        msgEntity.hide();  
+    },  
+    //显示动画  
+    show :function(){  
+        msgEntity.fadeIn(this.time/2);  
+        msgEntity.fadeOut(this.time/2);  
+    }  
+          
+}  
+</script>
+</body>
+</html>

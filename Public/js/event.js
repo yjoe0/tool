@@ -1,6 +1,5 @@
 $(document).ready(function(){
-    subscribe();
-    setTimeout(subscribe, 5000);
+
     $('#send').click(function(){
         var send_text = $('#send_text');
         var content = send_text.val();
@@ -24,7 +23,7 @@ $(document).ready(function(){
 
         // swf文件路径
         swf:     'https://cdn.staticfile.org/webuploader/0.1.5/Uploader.swf',
-        server:  './upload/upload',
+        server:  '/upload/upload',
         pick:    '#filePicker',
         chunked: true,
         chunkSize: 2*1024*1024,
@@ -41,6 +40,9 @@ $(document).ready(function(){
                 }
     });
 
+    uploader.on( 'fileQueued', function( file ) {
+        new Toast({context:$('body'),message:'开始上传'}).show();
+    });
     uploader.on( 'uploadSuccess', function( file ,response) {
         // console.log(response);
         new Toast({context:$('body'),message:'已上传'}).show();

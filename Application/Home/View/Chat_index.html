@@ -1,182 +1,228 @@
+
 <!DOCTYPE html>
-<html>
+<html class="js cssanimations">
 <head>
-    <title>个人聊天</title>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" >
-    <meta http-equiv="Cache-Control" content="no-transform " /> 
-    <script type="text/javascript" src="https://cdn.staticfile.org/socket.io/1.3.5/socket.io.min.js"></script>
-</head>
-<style type="text/css">
-    html,body{
-        height:100%;
-        margin: 2px;
-        background: #fbfbfb;
-    } 
-    #filePicker {
-        display: inline-block;
-        padding: 2px;
-    }
-    input {
-      min-height: 30px;
-      width: 70%;
-      font-weight: bold;
-    }
-    input[type=file] {
-        display: none;
-    }
-    .my_send {
-        float: right;
-        background: hsla(119, 69%, 51%, 0.64);
-        display: inline-block;
-        padding: 3px;
-        max-width: 87%;
-        border-radius: 4px;
-        word-wrap:break-word;
-        margin-top: 20px;
-    }
-    .my_send img {
-        float: right;
-        width: 300px;
-        height: auto;;
-    }
-    .receive {
-        display: inline-flex;
-    }
-    .receive_box {
-        display: inline-block;
-        padding: 3px;
-        max-width: 200px;
-        word-wrap:break-word;
-        background: #3385ff;
-        border-radius: 4px;
-    }
-    .receive_box img {
-        width: 99%;
-        height: auto;;
-    }
-    .trangle-right{
-        float: right;
-        margin:24px 6px 5px -3px;
-        width:0;
-        height:0;
-        border-top:8px solid transparent;
-        border-bottom:8px solid transparent;
-        border-left:8px solid hsla(119, 69%, 51%, 0.64);
+    <head>
+        <meta http-equiv="expires" content="0">
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <title>聊天列表</title>
+        <script>
+            function onBridgeReady() {
+                WeixinJSBridge.call('hideOptionMenu');
+            }
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                    document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                }
+            } else {
+                onBridgeReady();
+            }
+        </script>
+        <style>
+            html {
+                height: 90%;
+                font-size: 18px;
+            }
+
+            body {
+                margin: 0 auto;
+                width: 100%;
+            }
+            .footer-page {
+                position: fixed;
+                height: 60px;
+                background-color: #fff;
+                border-top: 1px solid #ddd;
+                bottom: 0;
+                width: 100%;
+                z-index: 299;
+            } 
+          ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                width: 100%;
+                height: 40px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                background: #FA5B5B;
+                z-index: 999;
+            }
+            .content {
+                width: 100%;
+                margin-top: 45px;
+            }
+
+            .content ul li {
+                border-bottom: 1px solid #ccc;
+                height: 70px;
+            }
+
+            .content ul li table {
+                width: 100%;
+                height: 70px;
+                font-size: 12px;
+                font-weight: 500;
+            }
+
+            .content ul li table .am-circle {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+            }
+
+            .content ul li table tr td img.sy, .content ul li table tr td img.dt {
+                width: 15px;
+                padding-bottom: 5px;
+            }
+
+            .content ul li table tr td img.r {
+                width: 17px;
+                padding-bottom: 5px;
+            }
+           
+            .enter_topic {
+                border: 1px solid;
+                border-color: #fa5b5b;
+                color: #fa5b5b;
+                padding: 5px 10px;
+                border-radius: 15px;
+            }
+
+        .topic_name {
+            font-size: 20px;
+            margin: 5px;
+            vertical-align: top;
+            padding-top: 9px;
+            line-height: 40px;
         }
-</style>
+        a {
+            text-decoration: none;
+        }
+        </style>
+
+    </head>
 <body>
 
-
-
-<div style="height: 90%">
-    <fieldset style="height: 95%;Overflow-y:scroll;" id='container'>
-      <legend>收到消息</legend>
-      <div id="msg_list">
-        <div id="msg_end" style="height:0px; overflow:hidden"></div>
-      </div>
-    </fieldset>
+<div class="header">
+<span style="text-align: center;width: 100%;display: inherit;line-height: 40px;color: #fff;">频道列表</span>
 </div>
-<div style="width: 100%; margin:2px;">
-    <span id="filePicker"> 图片 </span>
-    <input type="text" name="msg" id="send_text">
-    <button id="send">发送</button>
+<div class="content">
+    <ul>
+        <li>
+            <table>
+                <tbody>
+                <tr>
+                    <td style="padding-left: 3%;width: 50%;">
+                                <img class="am-circle" src="/Public/img/1.jpg">
+                                <span class="topic_name">闲聊</span>
+                                 </td>
+                            <td style="vertical-align: middle;">
+                                深圳市                            </td>
+                            <td rowspan="2" style="text-align: right;padding-right: 3%;" class="statusIco">
+                                <a href="/chat/topic/56ba16ee38f22202" ><span class="enter_topic">进入频道</span></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+        <li>
+            <table>
+                <tbody>
+                <tr>
+                    <td style="padding-left: 3%;width: 50%;">
+                                <img class="am-circle" src="/Public/img/2.jpg">
+                                <span class="topic_name">资源</span>
+                                 </td>
+                            <td style="vertical-align: middle;">
+                                深圳市                            </td>
+                            <td rowspan="2" style="text-align: right;padding-right: 3%;" class="statusIco">
+                                <a href="/chat/topic/afaf9bc3f05b3ed6" ><span class="enter_topic">进入频道</span></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+        <li>
+            <table>
+                <tbody>
+                <tr>
+                    <td style="padding-left: 3%;width: 50%;">
+                                <img class="am-circle" src="/Public/img/3.jpg">
+                                <span class="topic_name">福利</span>
+                                 </td>
+                            <td style="vertical-align: middle;">
+                                深圳市                            </td>
+                            <td rowspan="2" style="text-align: right;padding-right: 3%;" class="statusIco">
+                                <a href="/chat/check/076363d71a6906aa/<?php echo $pid;?>" ><span class="enter_topic">进入频道</span></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+        <li>
+            <table>
+                <tbody>
+                <tr>
+                    <td style="padding-left: 3%;width: 50%;">
+                                <img class="am-circle" src="/Public/img/9.jpg">
+                                <span class="topic_name">开车</span>
+                                 </td>
+                            <td style="vertical-align: middle;">
+                                深圳市                            </td>
+                            <td rowspan="2" style="text-align: right;padding-right: 3%;" class="statusIco">
+                                <a href="/chat/check/edb583598b483fbc/<?php echo $pid;?>" ><span class="enter_topic">进入频道</span></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+    </ul>
 </div>
-
-<input type="hidden" name="mySend" value="" id='mySend'>
-</body>
-<script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://cdn.cdnjs.net/fingerprintjs/0.5.3/fingerprint.min.js"></script>
-<script type="text/javascript" src="./Public/js/yunba-js-sdk.js"></script>
-<script type="text/javascript" src="./Public/js/event.js"></script>
-<script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.5/webuploader.withoutimage.min.js"></script>
-<!-- <script type="text/javascript" src="./Public/js/upload.js"></script> -->
-
+<div class="footer-page">
+    <div class="navs">
+        <div class="nav zb active">
+            <div class="inner" 
+                <div class="pic">123</div>
+            </div>
+        </div>
+        <div class="nav main">
+            <div class="inner">
+                <div class="pic"></div>
+            </div>
+        </div>
+    </div>
+    <div class="nav mine">
+        <div class="inner" 
+            <div class="pic"></div>
+        </div>
+    </div>
+    <div class="xui-clear-block"></div>
+</div>
+</div>
+</div>
+</div>
 <script>
-    var yunba = new Yunba({server: 'sock.yunba.io', port: 3000, appkey: '589069a0c4d184904a84bcd9'});    
-    var customid = new Fingerprint({screen_resolution: true}).get();
-    var topic = 'my_test_topic';
-    var mySend = $('#mySend');
-    var w = $(window).height();
-    var C = $('#container');
-    var M = $('#msg_list');
-// $('#msg_list').append($msg);
-    //  初始化
-    yunba.init(function (success) {
-        if (success) {
-            yunba.connect_by_customid(customid, function (success, msg, sessionid) {
-                if (success) {
-                    new Toast({context:$('body'),message:'已成功连接到服务器'}).show();
-                } else {
-                    $('#msg_list').append(msg);
-                }
-            });
-        }
-    });
-
-    // 订阅
-    function subscribe() {
-        yunba.subscribe({'topic': topic}, 
-            function (success, msg) {
-                if (success) {
-                    new Toast({context:$('body'),message:'你已进入频道：'+topic}).show();
-                } else {
-                    $('#msg_list').append(msg);
-                }
-            }
-            );
-
-            yunba.set_message_cb(function (data) {
-                if (data.msg != mySend.val() ) {
-                    $('#msg_list').append( data.msg );
-                    scrollIntoView();
-                }
-            
-        });
-    }
-
-    // 发送消息
-    function send(content) {
-        if ( IsURL(content) ) {
-            var images = ["jpg","png","gif","jpeg"];
-            var ext = content.substr(-3);
-            if (images.indexOf(ext) > -1) {
-                content = '<img src='+content+'>';
-            } else if (ext == 'mp4') {
-                content = '<video src="'+content+'" controls preload>您的浏览器不支持 video 标签。</video>';
-            } else {
-                content = '<a target="_blank" href="'+content+'">'+content.substr(0,43)+'...</a>';
-            }
-        }
-        
-        var sendContent = '<p><div class="receive"><b>'+customid+'</b>：<span class="receive_box">'+content+"</span></div>";
-
-        mySend.val(sendContent);
-        yunba.publish({'topic': topic, 'msg': sendContent },
-            function (success, msg) {
-                if (success) {
-                    $('#msg_list').append('<p><span class="trangle-right"></span><div class="my_send">'+content+'</div><br/></p><br/>');
-                    scrollIntoView(); 
-                } else {
-                    $('#msg_list').append(msg);
-                }
-            }
-        );
-    }
-
-    function scrollIntoView() {
-        C.scrollTop( M.height() );
-
-    }
-
-function IsURL(url){
-    var urlRegExp=/^((https|http|ftp|rtsp|mms)?:\/\/)+[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
-    if(urlRegExp.test(url)){
-        return true;
-    }else{
-        return false;
-    }
-}
+!window.jQuery && document.write('<script src="js/jquery.min.js"><\/script>');
+</script>
 
 </script>
+
+</body>
 </html>
