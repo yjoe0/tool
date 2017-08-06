@@ -45,7 +45,7 @@
         if (userId == customid) {
             userId = parseInt( Math.random()*1000000000 );
         }
-        var content = '<p><div class="receive"><b onclick=privateChat('+userId+')>'+ loc_info+ userId+'</b>：<span class="receive_box">'+content+"</span></div>";
+        var content = '<p><div class="receive"><b onclick=privateChat('+userId+')>未知地区'+ userId+'</b>：<span class="receive_box">'+content+"</span></div>";
         $('#msg_list').append( content );
         scrollIntoView();
     }
