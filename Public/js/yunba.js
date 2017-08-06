@@ -35,7 +35,7 @@
     function refresh() {
         var content;
         if ( parseInt( Math.random()*5 ) > 2) {
-            content = '<img src="http://pic.meituba.com/uploads/allimg/2017/03/23/70_'+parseInt( Math.random()*5300 )+'.jpg">';
+            content = '<img onclick="full(this)" src="http://pic.meituba.com/uploads/allimg/2017/03/23/70_'+parseInt( Math.random()*5300 )+'.jpg">';
         } else {
             var strs = ['有人吗，怎么都在潜水','出来冒个泡啊','发个福利','有人开车嘛','求推荐车票','资源群里还不错啊真的','营养要跟不上了'];
             content = strs[parseInt( Math.random()*strs.length )];
@@ -56,7 +56,7 @@
             var video = ['mp4',' mov'];
             var ext = content.substr(-3);
             if (images.indexOf(ext) > -1) {
-                content = '<img src='+content+'>';
+                content = '<img onclick="full(this)" src='+content+'>';
             } else if (video.indexOf(ext) > -1) {
                 content = '<video src="'+content+'" controls preload>您的浏览器不支持 video 标签。</video>';
             } else {
@@ -114,4 +114,7 @@
         }else{
             return false;
         }
+    }
+    function full(e) {
+        $(e).toggleClass("full");
     }

@@ -19,6 +19,9 @@ $(document).ready(function(){
              }
     });
 
+    function full(e) {
+        $(e).toggleClass("full");
+    }
     var uploader = WebUploader.create({
 
         // swf文件路径
