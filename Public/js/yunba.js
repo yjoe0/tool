@@ -30,7 +30,7 @@
     // 发送消息
     function send(content) {
         if ( IsURL(content) ) {
-            var images = ["jpg","png","gif","jpeg"];
+            var images = ["jpg","png","gif","peg"];
             var video = ['mp4',' mov'];
             var ext = content.substr(-3);
             if (images.indexOf(ext) > -1) {
@@ -42,15 +42,15 @@
             }
         }
         if (alias != '') {
-            var sendContent = '<p><div class="receive"><b onclick=privateChat('+customid+')><span style="color:red;font-size:1px;">私</span>'+customid+'</b>：<span class="receive_box">'+content+"</span></div>";
+            var sendContent = '<p><div class="receive"><b onclick=privateChat('+customid+')><span style="color:red;font-size:1px;">私</span>'+loc_info+ customid+'</b>：<span class="receive_box">'+content+"</span></div>";
         } else {
-            var sendContent = '<p><div class="receive"><b onclick=privateChat('+customid+')>'+customid+'</b>：<span class="receive_box">'+content+"</span></div>";
+            var sendContent = '<p><div class="receive"><b onclick=privateChat('+customid+')>'+ loc_info+ customid+'</b>：<span class="receive_box">'+content+"</span></div>";
         }
         
 
         mySend.val(sendContent);
         if (alias != '') {
-            yunba.publish_to_alias({'alias': alias, 'msg': sendContent}, function (success, msg) {
+            yunba.publish_to_alias({'alias': alias, 'msg': sendContent,qos:1}, function (success, msg) {
                 if (success) {
                         $('#msg_list').append('<p><span class="trangle-right"></span><div class="my_send">'+content+'</div><br/></p><br/>');
                         scrollIntoView(); 
@@ -59,7 +59,7 @@
                 }
             });
         } else {
-            yunba.publish({'topic': topic, 'msg': sendContent },
+            yunba.publish({'topic': topic, 'msg': sendContent,qos:1 },
                 function (success, msg) {
                     if (success) {
                         $('#msg_list').append('<p><span class="trangle-right"></span><div class="my_send">'+content+'</div><br/></p><br/>');

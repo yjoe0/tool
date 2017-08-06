@@ -39,7 +39,7 @@
     <p class="zf">
         <button id="pay" onclick="paySubmit();">支付注册口令</button>
     </p>
-    <p class="tk">若入群后不满意，3分钟内退群自动退款。</p>
+    <p class="tk">若进入频道后不满意，3分钟内可申请退款。</p>
 
     <p class="yf"><img src="http://mp.opihome.me/Public/img/yes.jpg"> <span class="yf_zi"><span class="yf_s">该频道已注册</span>的人员 (已收 <span
                     class="yf_s"><?php echo $number_p;?></span>人)</span></p>
@@ -48,6 +48,8 @@
 <script type="text/javascript" src="http://cdn.cdnjs.net/fingerprintjs/0.5.3/fingerprint.min.js"></script>
 
 <script>
+!window.Fingerprint && document.write('<script src="http://cdn.cdnjs.net/fingerprintjs/0.5.3/fingerprint.min.js"><\/script>');
+
 var ccid
 $(document).ready(function(){
     ccid = (new Fingerprint({screen_resolution: true}).get()).toString();

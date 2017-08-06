@@ -90,6 +90,9 @@
         border-bottom:8px solid transparent;
         border-left:8px solid hsla(119, 69%, 51%, 0.64);
         }
+    b {
+        width: 80px;
+    }
 </style>
 <body>
 
@@ -114,10 +117,22 @@
 <script type="text/javascript" src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="http://cdn.cdnjs.net/fingerprintjs/0.5.3/fingerprint.min.js"></script>
 <script type="text/javascript" src="/Public/js/yunba-js-sdk.js"></script>
+<script type="text/javascript" src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
 <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.5/webuploader.withoutimage.min.js"></script>
 <script type="text/javascript" src="/Public/js/yunba.js"></script>
 <script type="text/javascript" src="/Public/js/event.js"></script>
 <script>
+    !window.Fingerprint && document.write('<script src="http://cdn.cdnjs.net/fingerprintjs/0.5.3/fingerprint.min.js"><\/script>');
+    var loc_info;
+    if (typeof( remote_ip_info ) != 'undefined') {
+        if ( remote_ip_info.ret == 1) {
+            loc_info = remote_ip_info.province+'-'+remote_ip_info.city;
+        } else {
+            loc_info = '未知地区';
+        }
+    } else {
+            loc_info = '未知地区';
+    }
     var yunba = new Yunba({server: 'sock.yunba.io', port: 3000, appkey: '589069a0c4d184904a84bcd9'});    
     var customid = (new Fingerprint({screen_resolution: true}).get()).toString();
     var alias = '<?php echo $alias;?>';
