@@ -6,7 +6,7 @@ class ChatController extends Controller {
 
     public function index() {
         layout(false);
-        $params['pid'] = I('get.pid','');
+        $params['pid'] = I('get.pid',0);
         $this->assign($params);
         $this->display();
     }
@@ -67,7 +67,7 @@ class ChatController extends Controller {
     public function check() {
         layout(false);
         $topicId = I('get.topicId');
-        $pid = I('get.pid');
+        $pid = I('get.pid',0);
         if ( cookie('number_p') != '' ) {
             $number_p = cookie('number_p') + rand(0,2);
             cookie('number_p', $number_p);
@@ -85,7 +85,7 @@ class ChatController extends Controller {
     public function checkin() {
         $condition['ccid'] = I('get.ccid','');
         $condition['command'] = I('get.command','');
-        $topicId = I('get.topicId','');
+        $topicId = I('get.topicId','0');
         $Pay = M('chatpay');
         $check = $Pay->where($condition)->find();
         if ( !$check ) {
