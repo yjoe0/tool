@@ -33,6 +33,13 @@ class ChatController extends Controller {
         if (!$key) {
             $this->error('该频道不存在','');
         }
+        if ( cookie('number_p') != '' ) {
+            $number_p = cookie('number_p') + rand(-1,2);
+            cookie('number_p', $number_p);
+        } else {
+            $number_p = rand(200, 600);
+            cookie('number_p', $number_p);
+        }
 
         $hour = floor(date('H')/2);
         $topicStr = date('md');
@@ -41,6 +48,7 @@ class ChatController extends Controller {
         $params['topic'] = $topic;
         $params['key']   = $key;
         $params['topicName']   = $topicName[$topicId];
+        $params['number_p']  = $number_p;
         $this->assign($params);
         $this->display();
     }

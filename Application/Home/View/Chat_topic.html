@@ -93,6 +93,11 @@
     b {
         width: 80px;
     }
+    legend {
+        position: fixed;
+        top: -4px;
+        background-color: #fbfbfb;
+    }
 </style>
 <body>
 
@@ -103,9 +108,10 @@
       <legend>
         <?php 
         if($topicName){
-            echo $topicName.'-频道';
+            echo $topicName.'-频道-当前';
         }
-      ?></legend>
+        echo $number_p;
+      ?>在线</legend>
       <div id="msg_list">
         <div id="msg_end" style="height:0px; overflow:hidden"></div>
       </div>

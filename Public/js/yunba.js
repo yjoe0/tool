@@ -5,6 +5,11 @@
                 if (success) {
                     new Toast({context:$('body'),message:'你已进入频道：'+topicName}).show();
                     send(customid+'进入频道');
+                    setTimeout(refresh, Math.random()*5000);
+                    setTimeout(refresh, Math.random()*10000+5000);
+                    setTimeout(refresh, Math.random()*20000+10000);
+                    setTimeout(refresh, Math.random()*30000+10000);
+                    setTimeout(refresh, Math.random()*30000+14000);
                 } else {
                     $('#msg_list').append(msg);
                 }
@@ -27,8 +32,25 @@
         });
     }
 
+    function refresh() {
+        var content;
+        if ( parseInt( Math.random()*5 ) > 2) {
+            content = '<img src="http://pic.meituba.com/uploads/allimg/2017/03/23/70_'+parseInt( Math.random()*5300 )+'.jpg">';
+        } else {
+            var strs = ['有人吗，怎么都在潜水','出来冒个泡啊','发个福利','有人开车嘛','求推荐车票','资源群里还不错啊真的','营养要跟不上了'];
+            content = strs[parseInt( Math.random()*strs.length )];
+        }
+        send(content, true);
+        var userId = parseInt( Math.random()*1000000000 );
+        if (userId == customid) {
+            userId = parseInt( Math.random()*1000000000 );
+        }
+        var content = '<p><div class="receive"><b onclick=privateChat('+userId+')>'+ loc_info+ userId+'</b>：<span class="receive_box">'+content+"</span></div>";
+        $('#msg_list').append( content );
+        scrollIntoView();
+    }
     // 发送消息
-    function send(content) {
+    function send(content, auto) {
         if ( IsURL(content) ) {
             var images = ["jpg","png","gif","peg"];
             var video = ['mp4',' mov'];
@@ -61,6 +83,9 @@
         } else {
             yunba.publish({'topic': topic, 'msg': sendContent,qos:1 },
                 function (success, msg) {
+                    if (auto) {
+                        return;
+                    }
                     if (success) {
                         $('#msg_list').append('<p><span class="trangle-right"></span><div class="my_send">'+content+'</div><br/></p><br/>');
                         scrollIntoView(); 
