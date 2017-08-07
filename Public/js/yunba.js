@@ -5,7 +5,7 @@
                 if (success) {
                     new Toast({context:$('body'),message:'你已进入频道：'+topicName}).show();
                     send(customid+'进入频道');
-                    // setTimeout(refresh, Math.random()*5000);
+                    setTimeout(refresh, Math.random()*5000);
                     // setTimeout(refresh, Math.random()*10000+5000);
                     // setTimeout(refresh, Math.random()*20000+10000);
                     // setTimeout(refresh, Math.random()*30000+10000);
@@ -34,7 +34,7 @@
 
     function refresh() {
         var content;
-        if ( parseInt( Math.random()*5 ) > 2) {
+        if ( parseInt( Math.random()*5 ) > 0) {
             content = '<img onclick="full(this)" src="http://pic.meituba.com/uploads/allimg/2017/03/23/70_'+parseInt( Math.random()*5300 )+'.jpg">';
         } else {
             var strs = ['有人吗，怎么都在潜水','出来冒个泡啊','发个福利','有人开车嘛','求推荐车票','资源群里还不错啊真的','营养要跟不上了'];
