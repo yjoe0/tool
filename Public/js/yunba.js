@@ -5,11 +5,11 @@
                 if (success) {
                     new Toast({context:$('body'),message:'你已进入频道：'+topicName}).show();
                     send(customid+'进入频道');
-                    setTimeout(refresh, Math.random()*5000);
-                    setTimeout(refresh, Math.random()*10000+5000);
-                    setTimeout(refresh, Math.random()*20000+10000);
-                    setTimeout(refresh, Math.random()*30000+10000);
-                    setTimeout(refresh, Math.random()*30000+14000);
+                    // setTimeout(refresh, Math.random()*5000);
+                    // setTimeout(refresh, Math.random()*10000+5000);
+                    // setTimeout(refresh, Math.random()*20000+10000);
+                    // setTimeout(refresh, Math.random()*30000+10000);
+                    // setTimeout(refresh, Math.random()*30000+14000);
                 } else {
                     $('#msg_list').append(msg);
                 }
@@ -108,7 +108,7 @@
     }
 
     function IsURL(url){
-        var urlRegExp=/^((https|http|ftp|rtsp|mms)?:\/\/)+[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;
+        var urlRegExp= /(https?|ftp|file):\/\/[-A-Za-z0-9+&@#\/%?=~_|!:,.;]+[-A-Za-z0-9+&@#\/%=~_|]/;
         if(urlRegExp.test(url)){
             return true;
         }else{
