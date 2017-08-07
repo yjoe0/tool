@@ -22,14 +22,33 @@
                 if (data.msg.indexOf('<span style="color:red;font-size:1px;">私</span>') > 0) {
                     $('#msg_list').append( data.msg );
                     scrollIntoView();
+                    notify(data.msg);
                 }
             } else {
                 if (data.msg != mySend.val() ) {
                     $('#msg_list').append( data.msg );
                     scrollIntoView();
+                    notify(data.msg);
                 }
             }
         });
+    }
+    function notify(msg) {
+        if(window.Notification && Notification.permission !== "denied") {
+            Notification.requestPermission(function(status) {    // 请求权限
+                if(status === 'granted') {
+                    // 弹出一个通知
+                    var n = new Notification('Title', {
+                        body : msg
+                        // icon : './images/test1.png'
+                    });
+                    // 两秒后关闭通知
+                    setTimeout(function() {
+                        n.close();
+                    }, 2000);
+                }
+            });
+        }
     }
 
     function refresh() {
