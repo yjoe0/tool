@@ -51,14 +51,14 @@
     }
     // 发送消息
     function send(content, auto) {
-        if ( IsURL(content) ) {
+        if ( !auto & IsURL(content) ) {
             var images = ["jpg","png","gif","peg"];
             var video = ['mp4',' mov'];
             var ext = content.substr(-3);
             if (images.indexOf(ext) > -1) {
                 content = '<img onclick="full(this)" src='+content+'>';
             } else if (video.indexOf(ext) > -1) {
-                content = '<video src="'+content+'" controls preload>您的浏览器不支持 video 标签。</video>';
+                content = '<video onclick="full(this)" src="'+content+'" controls preload>您的浏览器不支持 video 标签。</video>';
             } else {
                 content = '<a target="_blank" href="'+content+'">'+content.substr(0,43)+'...</a>';
             }
