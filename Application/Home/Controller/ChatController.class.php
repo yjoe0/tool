@@ -91,7 +91,7 @@ class ChatController extends Controller {
         if ( !$check ) {
             $this->error('请检查口令以及是否在常用设备或浏览器打开');
         }
-        if ( $check['money'] > 2900) {
+        if ( $check['money'] > 900) {
             header('Location:/chat/topic/'.$topicId);
         } else {
             $this->error('抱歉，你没有权限进入该频道');
@@ -134,6 +134,7 @@ class ChatController extends Controller {
         } else {
             $money = 19;
         }
+        $money = 19;
         $data['mchno'] = C('mchno');
         $data['outTradeNo'] = date("ymdHi").substr(md5(time().print_r($_SERVER,1)), 0, 22); 
         $data['money'] = (intval( $money )*100);
