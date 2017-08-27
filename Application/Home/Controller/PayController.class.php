@@ -56,6 +56,8 @@ class PayController extends Controller {
 
     public function payBack() {
 
+        echo "SUCCESS";
+        die();
         $status     = I('post.status');
         $outTradeNo = I('post.outTradeNo');
         $tradeNo    = I('post.tradeNo');

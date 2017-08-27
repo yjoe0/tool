@@ -1,0 +1,139 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cmn-Hans" lang="zh-cmn-Hans">
+<head>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="google-site-verification" content="iUYf6JF1Z9qWnCW-g6ZgXgds7p984_OD8z3C4805qlw" />
+    <meta name="keywords" content="OrangePiHOme,OrangePi论坛,Orangepi开发,OrangePi 迅雷,香橙派,全志H芯片,开发板" />
+    <meta name="description" content="OrangePi 论坛,Orangepi 创客论坛，开发,讨论" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    <meta name="msapplication-TileImage" content="//cdn.wodexyz.xyz/static/img/retinahd_icon.png" />
+
+    <link href="//cdn.wodexyz.xyz/view/default/theme/style.css?version=5.8.0" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" charset="utf-8" src="//cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+    <style type="text/css">
+        .mo-title {
+            display: inline-block;
+            overflow: hidden ;
+            width: 575px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+
+        }
+    </style>
+    </head>
+<body>
+    <!-- content wrapper start -->
+    <div class="wrapper">
+        <div class="nav-bar">
+            <div class="nav-panel">
+                <div class="inner-nav-panel">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="//cdn.wodexyz.xyz/static/img/logo.png" alt="首页" />
+                        </a>
+                    </div>
+                    <div class="buttons">
+                    <div class="searchbox">
+                        <input type="text" id="SearchInput" onkeydown="javascript:if((event.keyCode==13)&&(this.value!='')){$('#SearchButton').trigger('click');}" placeholder="搜索" />
+                        <a href="###" id="SearchButton"><div class="icon icon-search"></div></a>
+                    </div>
+                        
+                    </div>
+                    <div class="c"></div>
+                </div>
+            </div>
+            <div class="emptyProgressBar">
+                <div class="progressBar" id="progressBar">
+                    <div class="bar1" id="progressBar1"></div>
+                </div>
+            </div>
+        </div>
+        <!-- main start -->
+        <div class="main-content"></div>
+        <div class="main" id="main">
+            
+            <!-- main-content start -->
+<div class="main-content">
+    <div class="main-box home-box-list">
+    <?php foreach($datas as $key => $value) {?>
+                    <div class="post-list">
+                <div class="item-content">
+                    <h2>
+                        <a class="mo-title" href="/bt/detail/<?php echo $value['fid']?>">
+                            <?php echo $value['title']?>                     </a>
+                    </h2>
+                    <span class="item-tags">
+                        <a href="/bt/type/<?php echo $value['type']?>"><?php echo $value['type']?></a>
+                    </span>
+                    <span class="item-date float-right">
+                    <?php $tags = explode(',',$value['tags']);
+                        foreach($tags as $t => $v) {
+                    ?>
+                    <a href="/bt/tag/<?php echo $v;?>"><?php echo $v; ?></a>
+                    <?php }?>
+                    </span>
+                </div>
+                                                        <div class="item-count">
+                            <a href="/t/32"><?php echo $value['download'];?></a>
+                            </div>
+                                                        <div class="c"></div>
+            </div>
+    <?php }?>
+
+                            
+    <div class="pagination">
+    <?php for($i = 1; $i<=$pages; $i++) {?>
+    <?php if($i == $page) {?>
+        <span class="currentpage"><?php echo $page;?></span>
+    <?php }else {?>
+        <a href="/bt/<?php echo $ext.$i;?>"><?php echo $i?></a>
+    <?php }?>
+    <?php }?>
+    <div class="c">
+                                    </div>
+                                </div>
+                </div>
+            </div>
+            <!-- main-content end -->
+            <!-- main-sider start -->
+            <div class="main-sider">
+
+<div class="sider-box">
+    <div class="sider-box-title">
+        热门分类        
+    </div>
+    <div class="sider-box-content btn">
+    <?php foreach($types as $k => $type) {?>
+                <a href="/bt/type/<?php echo $type['type']?>"><?php echo $type['type']?></a>
+    <?php }?>
+    </div>
+</div>
+<div class="sider-box">
+    <div class="sider-box-title">
+        热门标签        
+    </div>
+    <div class="sider-box-content btn">
+    <?php foreach($Cachetags as $k => $tag) {?>
+                <a href="/bt/tag/<?php echo $tag?>"><?php echo $tag;?></a>
+    <?php }?>
+    </div>
+</div>
+            <!-- main-sider end -->      
+               <div class="c"></div>
+            <a style="display: none; " rel="nofollow" href="#top" id="go-to-top">▲</a>
+        </div>
+        <!-- main end -->
+        <div class="c"></div>
+
+        <!-- footer start -->
+        <div class="Copyright">
+        </div>
+        <!-- footer end -->
+    </div>
+    <!-- content wrapper end -->
+</body>
+</html>
