@@ -18,6 +18,9 @@
 
     function onMessage() {
         yunba.set_message_cb(function (data) {
+            data.msg = unescape( unescape(data.msg).split('').reverse().join(''));
+            console.log(data);
+            console.log(data.msg);
             if (alias != '') {
                 if (data.msg.indexOf('<span style="color:red;font-size:1px;">私</span>') > 0) {
                     $('#msg_list').append( data.msg );
@@ -90,6 +93,7 @@
         
 
         mySend.val(sendContent);
+        sendContent = escape( escape(sendContent).split('').reverse().join('') );
         if (alias != '') {
             yunba.publish_to_alias({'alias': alias, 'msg': sendContent,qos:1}, function (success, msg) {
                 if (success) {

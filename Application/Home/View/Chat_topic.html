@@ -185,7 +185,7 @@ if (typeof( remote_ip_info ) != 'undefined') {
 function privateChat(alias) {
     var msg = "确定和他私聊吗？\n\n请确认！";
     if (confirm(msg)==true){
-        window.location.href = '/chat/alias/'+alias;
+        window.open('/chat/alias/'+alias);
     }else{
         return false;
     }

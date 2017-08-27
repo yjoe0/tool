@@ -151,6 +151,7 @@
     var yunba = new Yunba({server: 'sock.yunba.io', port: 3000, appkey: '589069a0c4d184904a84bcd9'});    
     var customid = (new Fingerprint({screen_resolution: true}).get()).toString();
     var alias = '<?php echo $alias;?>';
+    alias = (alias == 'mailbox' ? customid: alias);
     var mySend = $('#mySend');
     var w = $(window).height();
     var C = $('#container');
@@ -171,7 +172,14 @@
         }
     });
 
-
+function privateChat(alias) {
+    var msg = "确定和他私聊吗？\n\n请确认！";
+    if (confirm(msg)==true){
+        window.open('/chat/alias/'+alias);
+    }else{
+        return false;
+    }
+}
 
 </script>
 <div style="display: none;">
