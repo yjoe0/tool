@@ -175,13 +175,12 @@ class ChatController extends Controller {
         $data['money'] = (intval( $money )*100);
         $data['body'] = I('post.body', '车票');
         $data['nonceStr'] = I('get.ccid','0');
-        $data['notifyUrl'] = 'http://mp.opihome.me/chat/payback.html';
+        $data['notifyUrl'] = 'http://188.166.1.45/chat/payback.html';
         $data['returnUrl'] = urlencode('http://mp.opihome.me/chat/');
-        $data['attach'] = I('get.command','0').'|'.I('get.pid','');
+        $data['attach'] = I('get.command','0').'|'.I('get.pid','0');
         $data['payTime'] = date("Y-m-d H:m:s");
 
-        print_r($data);
-        die();
+
         $signature =  $data['mchno'].$data['outTradeNo'].$data['money'].$data['nonceStr'].C('mchno_key');
         $data['sign'] = md5($signature);
 
@@ -205,7 +204,7 @@ class ChatController extends Controller {
         $attachs   = explode('|', I('post.attach'));
         $message   = I('post.message');
         $paytime   = I('post.payTime');
-        print_r(I());
+
         if ($status != 1) {
             echo 'FAIL';
             exit();
