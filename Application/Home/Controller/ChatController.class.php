@@ -160,15 +160,15 @@ class ChatController extends Controller {
             $this->error('抱歉，支付失败',0);
         }
 
-        if ($topicId = '076363d71a6906aa') {
-            $money = 29;
-        } elseif ($topicId = 'edb583598b483fbc') {
-            $money = 39;
-        }elseif ($topicId = 'afaf9bc3f05b3ed6') {
-            $money = 29;
-        } else {
-            $money = 19;
-        }
+        // if ($topicId = '076363d71a6906aa') {
+        //     $money = 29;
+        // } elseif ($topicId = 'edb583598b483fbc') {
+        //     $money = 39;
+        // }elseif ($topicId = 'afaf9bc3f05b3ed6') {
+        //     $money = 29;
+        // } else {
+        //     $money = 19;
+        // }
         $money = 19;
         $data['mchno'] = C('mchno');
         $data['outTradeNo'] = date("ymdHi").substr(md5(time().print_r($_SERVER,1)), 0, 22); 
@@ -180,6 +180,8 @@ class ChatController extends Controller {
         $data['attach'] = I('get.command','0').'|'.I('get.pid','');
         $data['payTime'] = date("Y-m-d H:m:s");
 
+        print_r($data);
+        die();
         $signature =  $data['mchno'].$data['outTradeNo'].$data['money'].$data['nonceStr'].C('mchno_key');
         $data['sign'] = md5($signature);
 
@@ -203,7 +205,7 @@ class ChatController extends Controller {
         $attachs   = explode('|', I('post.attach'));
         $message   = I('post.message');
         $paytime   = I('post.payTime');
-
+        print_r(I());
         if ($status != 1) {
             echo 'FAIL';
             exit();
@@ -215,7 +217,7 @@ class ChatController extends Controller {
             $log = $log.' , '.$key.'=>'.$value;
         }
         $log = $log.' , Mysign: =>'.$singure;
-        \Think\Log::record(date("[Y-m-d H:i:s]"). $log."\n");
+        \Think\Log::record('pay'.date("[Y-m-d H:i:s]"). $log."\n");
 
         if ($singure != strtolower(I('post.sign')) ) {
             echo "FAIL";
@@ -236,7 +238,7 @@ class ChatController extends Controller {
         $Pay->create($params, Model::MODEL_INSERT);
         $result = $Pay->add();
         if (!$result) {
-            \Think\Log::record('PAY SQL:'.$result);
+            \Think\Log::record('PAY.SQL'.$result.'\n');
         } 
         echo 'SUCCESS';
     }

@@ -75,7 +75,7 @@ $(document).ready(function(){
     function paySubmit() {
         var command = checkCommand();
         if ( command ) {
-            var payUrl = window.location.origin+'/chat/pay/<?php echo $topicId?>/'+ccid+'/'+command <?php echo $pid ? '+/'.$pid :'' ;?>;
+            var payUrl = window.location.origin+'/chat/pay/'+ccid+'/'+command <?php echo $pid ? '+/'.$pid :'' ;?>;
             if ( is_weixn() ) {
                 window.location.href = payUrl;
             } else {
