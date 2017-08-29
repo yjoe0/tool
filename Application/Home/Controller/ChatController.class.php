@@ -17,6 +17,10 @@ class ChatController extends Controller {
         if ($topicId == '') {
             $this->error('该频道不存在','');
         }
+        if( $topicId != '56ba16ee38f22202' && cookie('hadpaid') <100) {
+            print_r('expression');
+            header('Location:/chat/check/'.$topicId);
+        }
         layout(false);
 
         $topics = array('56ba16ee38f22202' => '5984905fd3a02f2c591095f5', //opi@1
@@ -68,6 +72,11 @@ class ChatController extends Controller {
         layout(false);
         $topicId = I('get.topicId');
         $pid = I('get.pid',0);
+
+        if( cookie('hadpaid')> 100 ) {
+            header('Location:/chat/topic/'.$topicId);
+        }
+        
         if ( cookie('number_p') != '' ) {
             $number_p = cookie('number_p') + rand(0,2);
             cookie('number_p', $number_p);
@@ -88,14 +97,40 @@ class ChatController extends Controller {
         $topicId = I('get.topicId','0');
         $Pay = M('chatpay');
         $check = $Pay->where($condition)->find();
+
         if ( !$check ) {
             $this->error('请检查口令以及是否在常用设备或浏览器打开');
         }
         if ( $check['money'] > 900) {
-            header('Location:/chat/topic/'.$topicId);
+            cookie('hadpaid',$check['money'],'expire=3600');
+            if ($topicId == 'afaf9bc3f05b3ed6') {
+                header('Location:/chat/history/');
+            } else {
+                header('Location:/chat/topic/'.$topicId);
+            }
+            
         } else {
             $this->error('抱歉，你没有权限进入该频道');
         }
+    }
+
+    public function history() {
+        layout(false);
+        if( cookie('hadpaid') < 100 ) {
+            header('Location:/chat/check/afaf9bc3f05b3ed6/0');
+        } else {
+            $Pay = M('chathistory');
+            $datas = $Pay->limit(10)->order('id desc')->select();
+            $this->assign('datas', $datas);
+            $this->display();
+        }
+    }
+    public function share() {
+        layout(false);
+        $Pay = M('chathistory');
+        $datas = $Pay->limit(10)->order('id desc')->select();
+        $this->assign('datas', $datas);
+        $this->display();
     }
 
     public function getPayUrl() {

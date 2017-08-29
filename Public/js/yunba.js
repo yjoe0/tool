@@ -6,10 +6,6 @@
                     new Toast({context:$('body'),message:'你已进入频道：'+topicName}).show();
                     send(customid+'进入频道');
                     setTimeout(refresh, Math.random()*5000);
-                    // setTimeout(refresh, Math.random()*10000+5000);
-                    // setTimeout(refresh, Math.random()*20000+10000);
-                    // setTimeout(refresh, Math.random()*30000+10000);
-                    // setTimeout(refresh, Math.random()*30000+14000);
                 } else {
                     $('#msg_list').append(msg);
                 }
@@ -19,8 +15,6 @@
     function onMessage() {
         yunba.set_message_cb(function (data) {
             data.msg = unescape( unescape(data.msg).split('').reverse().join(''));
-            console.log(data);
-            console.log(data.msg);
             if (alias != '') {
                 if (data.msg.indexOf('<span style="color:red;font-size:1px;">私</span>') > 0) {
                     $('#msg_list').append( data.msg );
