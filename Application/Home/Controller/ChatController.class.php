@@ -169,7 +169,7 @@ class ChatController extends Controller {
         // } else {
         //     $money = 19;
         // }
-        $money = 19;
+        $money = 10;
         $data['mchno'] = C('mchno');
         $data['outTradeNo'] = date("ymdHi").substr(md5(time().print_r($_SERVER,1)), 0, 22); 
         $data['money'] = (intval( $money )*100);
