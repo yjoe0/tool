@@ -33,6 +33,23 @@ class QudaoController extends Controller {
         $this->display();
     }
 
+    public function add() {
+        if (IS_GET) {
+            $this->display();
+            exit();
+        }
+        $condition['pid'] = I('post.pid');
+        $condition['user'] = I('post.user');
+        $condition['pwd'] = I('post.pwd', '12345678');
+        $condition['alipay'] = I('post.alipay',' ');
+        $User = M('chatpid');
+        if ( $User->add($condition) ) {
+            $this->redirect('qudao/index');
+        } else {
+            $this->error('信息错误');
+        }
+
+    }
 
 
 

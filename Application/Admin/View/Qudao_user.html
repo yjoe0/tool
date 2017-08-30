@@ -4,7 +4,7 @@
 
         <table class="table table-striped table-bordered table-condensed">
       <caption>报表
-      <span style="border: ">总积分:<?php echo $sum;?></span>
+      <span style="border: ">总积分:<?php echo $sum?: '0';?></span>
       <?php if($user['apply']  == '0') {?>
       <button id="apply-cash">申请提现</button>
   <?php } ?>
