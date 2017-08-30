@@ -2,22 +2,26 @@
 namespace Admin\Controller;
 use Think\Controller;
 class IndexController extends Controller {
+
     public function index() {
         $username = session('username');
         if ( !$username ) {
-            $this->redirect('index/login');
+            $this->redirect('login');
+            exit();
         }
-        $User = M('admin_user');
-        $condition['username'] = $username;
-        $User = $User->where($condition)->find();
+        $chatpay = M('chatpay');
+        $count      = $chatpay->count();
+        $Page       = new \Think\Page($count,2);
+        $show       = $Page->show();
+        $datas = $chatpay->order('id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $this->assign('datas', $datas);
+        $this->assign('page', $show);
         $this->display();
     }
 
     public function login() {
-        if ( session('username') ) {
-            $this->redirect('index/index');
-        }
         if ( IS_GET) {
+            layout(false);
             $this->display();
             exit();
         }
@@ -31,10 +35,6 @@ class IndexController extends Controller {
         } else {
             $this->error('请检查账号或密码',0);
         }
-    }
-
-    public function regisger() {
-        $this->display();
     }
 
 

@@ -1,0 +1,99 @@
+<style>
+    body {
+        font-family: "微软雅黑", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: #000;
+    }
+    .left-menu {
+        background-color: #555;
+        height: 100%;
+    }
+    .left-menu ul li a {
+            color: #a0a0a0;
+            padding-left: 15px;
+        }
+    .left-menu ul li a:hover {
+        color: #fff;
+        background-color: #a0a0a0;
+    }
+    td,th {
+        text-align: center;
+    }
+    .num {
+        padding: 5px;
+        margin: 0px 3px;
+    }
+</style>
+<div class="container-fluid" id="sitebar">
+    <div class="row">
+            <div class="col-md-2 left-menu" style="width: 180px;">
+                <span class="text-center"><h4 style="color: #fff;">你好,欢迎光临!!!</h4></span>
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="{:U('manager/main')}">订单列表</a></li>
+                    <li><a href="{:U('manager/user')}">个人中心</a></li>
+                    <li><a href="#">退出</a></li>
+                </ul>
+            </div>
+
+        <div class="col-md-9" style="height: 100%;color: #000;">
+    
+     <table class="table table-striped table-bordered table-condensed">
+      <caption>报表</caption>
+      <thead>
+        <tr> <th>编号ID</th> <th>PID</th> <th>积分</th> <th>账号</th><th>密码</th> <th>支付宝</th><th>更新</th><th>操作</th> </tr> 
+        </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><?php echo $user['id'];?></th>
+          <td><?php echo $user['pid'];?></td>
+          <td><?php echo $sum;?></td>
+          <td><?php echo $user['user'];?></td>
+          <td><input name="pwd" value="<?php echo $user['pwd'];?>" id="pwd"></td>
+          <td><input name="pwd" value="<?php echo $user['alipay'];?>" id="alipay"></td>
+          <td><button id="submit">更新</button></td>
+          <td><button id="apply-cash"><?php if($user['apply'] == '0' ) { echo "申请提现"; } else {echo "请稍等"; }?></button></td>
+        </tr>
+      </tbody>
+    </table>
+        </div>
+</div>
+<script>
+    $('#submit').click(function(){
+      var pwd = $('#pwd').val();
+      var alipay = $('#alipay').val();
+      $.ajax({
+            url:'{:U("manager/update")}',
+            type:'POST', //GET
+            data:{
+                pwd:pwd,alipay:alipay,id:<?php echo $user['id'];?>
+            },
+            dataType:'json',
+            success:function(data,textStatus,jqXHR){
+                console.log(data);
+                if(data.status) {
+                    $('#pwd').val(data.pwd);
+                    $('#alipay').val(data.alipay);
+                }
+            }
+            });
+    });
+    $('#apply-cash').click(function(){
+        $.ajax({
+                    url:'{:U("manager/update")}',
+                    type:'POST', //GET
+                    data:{
+                        apply:'1',id:<?php echo $user['id'];?>
+                    },
+                    dataType:'json',
+                    success:function(data,textStatus,jqXHR){
+                        console.log(data);
+                        if(data.status) {
+                            $('#apply-cash').html('请稍等');
+                        }
+                    }
+                    });
+            });
+</script>
+
+
+

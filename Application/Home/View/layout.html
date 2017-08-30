@@ -1,35 +1,16 @@
 <!DOCTYPE>
 <html lang="zh-cn">
 <head>
-    <title> 生活小工具</title>
+    <title> 我的小园子</title>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Cache-Control" content="no-transform " /> 
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <load file="/Public/bootstrap.min.css" />
+    <load file="/Public/jquery.min.js" />
+    <load file="/Public/bootstrap.min.js"/>
 </head>
 <body>
-<style>
-    body {font-family: "微软雅黑", Arial, Helvetica, sans-serif; font-size: 14px; color: #000; } .left-menu {background-color: #555; height: 115%; } .left-menu ul li a {color: #a0a0a0; padding-left: 15px; } .left-menu ul li a:hover {color: #fff; background-color: #a0a0a0; } .text-left h4 {color: #fff; } </style>
-<!-- 导航条标题-->
-<div class="hidden-sm hidden-md hidden-lg">
-    <div class="navbar-fixed-bottom">
-  　    <a href="{:U('/tieba')}" class="navbar-brand">贴吧云签到</a>
-  　    <a href="{:U('/chat')}" class="navbar-brand">在线聊天室(快上车)</a>
-  　</div>
-</div>
- <div class="container-fluid" id="sitebar">
-    <div class="row">
-    <!-- 左侧菜单 -->
-            <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 left-menu">
-                <span class="text-left"><h4>你好,欢迎光临!!!</h4></span>
-                <ul class="nav nav-pills nav-stacked">
-                    <li><a href="{:U('/tieba')}">贴吧签到</a></li>
-                    <li><a href="{:U('/chat')}">在线聊天室(快上车)</a></li>
-                </ul>
-            </div>
-        <!-- 左侧菜单结束 -->
+
 {__CONTENT__}
 
 </body>

@@ -1,22 +1,21 @@
 
-
         <div class="col-md-9" style="height: 100%;color: #000;">
 
         <table class="table table-striped table-bordered table-condensed">
       <caption>报表</caption>
       <thead>
-        <tr> <th>编号ID</th> <th>PID</th> <th>积分</th> <th>单号</th><th>时间</th> <th>信息</th> <th>状态</th></tr> 
+        <tr> <th>编号ID</th> <th>PID</th> <th>查看积分</th> <th>账号</th><th>密码 </th><th>账号</th> <th>信息</th> </tr> 
         </thead>
       <tbody>
       <?php foreach($datas as $key => $val) {?>
         <tr>
           <th scope="row"><?php echo $val['id'];?></th>
           <td><?php echo $val['pid'];?></td>
-          <td><?php echo $val['money'];?></td>
-          <td><?php echo $val['outtradeno'];?></td>
-          <td><?php echo $val['paytime'];?></td>
-          <td><?php echo $val['message'];?></td>
-          <td><?php echo ($val['applyed']== '0')?'未提现':'已提现';?></td>
+          <td><a href="/Admin/qudao/user/<?php echo $val['pid'];?>">查看积分</a></td>
+          <td><?php echo $val['user'];?></td>
+          <td><?php echo $val['pwd'];?></td>
+          <td><?php echo $val['alipay'];?></td>
+          <td><?php echo $val['updatetime'];?></td>
         </tr>
         <?php }?>
       </tbody>
