@@ -74,7 +74,7 @@ class ChatController extends Controller {
         $pid = I('get.pid',0);
 
         if( cookie('hadpaid')> 100 ) {
-            header('Location:/chat/topic/'.$topicId);
+            $this->redirect('/');
         }
         
         if ( cookie('number_p') != '' ) {
